@@ -12,6 +12,7 @@ clone:
 steps:
 - name: Build
   commands:
+  - export NIXPKGS_ALLOW_UNFREE
   - nix-build -v -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
   environment:
     NIX_PATH: nixpkgs=channel:nixos-unstable
