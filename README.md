@@ -22,7 +22,7 @@ nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}' -v
 wget https://pjreddie.com/media/files/yolov3-tiny.weights -P  cfg/
 
 # execute darknet in detector mode
-./result/bin/darknet ./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg cfg/yolov3-tiny.weights
+./result/bin/darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg cfg/yolov3-tiny.weights
 ```
 I recommend checking out nvtop for monitoring your GPU usage. Tiny modells shouldn't really need much ressources. Bigger models quickly need 15GB+ VRAM.
 The rest of the repository stays unchanged!
