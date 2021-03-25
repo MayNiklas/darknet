@@ -1,3 +1,33 @@
+# Darknet simplified for NixOS
+### Motivation of this fork:
+- simplifying the installation of darknet for NixOS users
+- creating a simple demonstration enviroment -> being executable with a few commands
+
+### Implementation:
+- I created a default.nix, compilying the needed dependencies in a way darknet supports NVIDIA CUDA
+- Our CI CD server builds it on a daily basis -> we are able to use it quicker
+
+### Guide:
+```bash
+# clone the repository
+git clone https://github.com/MayNiklas/darknet.git && cd darknet
+
+# allow unfree (NVIDIA CUDA)
+export NIXPKGS_ALLOW_UNFREE=1
+
+# build darknet with all needed dependency correctly configured
+nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}' -v
+
+# download yolov3-tiny.weights, a tiny pre trained modell we can use for demo purposes
+wget https://pjreddie.com/media/files/yolov3-tiny.weights -P  cfg/
+
+# execute darknet in detector mode
+./result/bin/darknet ./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg cfg/yolov3-tiny.weights
+```
+I recommend checking out nvtop for monitoring your GPU usage. Tiny modells shouldn't really need much ressources. Bigger models quickly need 15GB+ VRAM.
+The rest of the repository stays unchanged!
+
+
 ![Darknet Logo](http://pjreddie.com/media/files/darknet-black-small.png)
 
 # Darknet #
